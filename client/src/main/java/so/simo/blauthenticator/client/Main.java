@@ -3,8 +3,6 @@ package so.simo.blauthenticator.client;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.sun.xml.internal.bind.v2.runtime.reflect.Accessor;
-import sun.awt.windows.ThemeReader;
 
 public class Main {
 

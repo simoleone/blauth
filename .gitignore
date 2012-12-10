@@ -1,2 +1,5 @@
 *.class
 out/
+*.ipr
+*.iws
+*.iml

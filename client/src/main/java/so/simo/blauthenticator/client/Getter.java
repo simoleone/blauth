@@ -39,7 +39,6 @@ public class Getter {
         System.exit(1);
       }
 
-      // get service url. TODO: look into launching app via bluetooth
       final CountDownLatch latch = new CountDownLatch(1);
       final AtomicReference<String> serviceUri = new AtomicReference<String>();
       LocalDevice.getLocalDevice()
@@ -53,7 +52,7 @@ public class Getter {
 
             @Override public void servicesDiscovered(int transID, ServiceRecord[] servRecord) {
               serviceUri.set(
-                  servRecord[0].getConnectionURL(ServiceRecord.AUTHENTICATE_ENCRYPT, true));
+                  servRecord[0].getConnectionURL(ServiceRecord.AUTHENTICATE_NOENCRYPT, true));
             }
 
             @Override public void serviceSearchCompleted(int transID, int respCode) {
@@ -76,16 +75,11 @@ public class Getter {
       DataInputStream inputStream = connection.openDataInputStream();
 
       // write some stuff to it
-      outputStream.writeBytes("Hello world");
-      outputStream.write(0);
+      outputStream.writeBytes("GET " + getParams.otpName + "\n");
 
       // read from socket
-      int c = inputStream.read();
-      while (c > 0) {
-        System.out.print((char) c);
-        c = inputStream.read();
-      }
-      System.out.println();
+      String passCode = inputStream.readLine();
+      System.out.println(passCode);
       System.exit(0);
     } catch (Exception e) {
       e.printStackTrace();
